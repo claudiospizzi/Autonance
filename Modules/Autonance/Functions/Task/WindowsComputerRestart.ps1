@@ -154,6 +154,9 @@ function WindowsComputerRestart
         finally
         {
             Remove-AutonanceSession -Session $session
+
+            # Ensure, that the next task has a short delay
+            Start-Sleep -Seconds 5
         }
     }
 }
