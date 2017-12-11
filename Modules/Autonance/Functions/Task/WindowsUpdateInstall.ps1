@@ -143,13 +143,23 @@ function WindowsUpdateInstall
 
                 $updateList = $using:selectedUpdates.Identity -join ','
 
-                $newScheduledTask = @{
-                    Action    = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-NoProfile -File  `"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1`" -Id `"$using:guid`" -Update `"$updateList`""
-                    Trigger   = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(-1)
-                    Principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -RunLevel Highest
-                    Settings  = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries
+                if ($null -eq (Get-Command -Name 'New-ScheduledTask' -ErrorAction SilentlyContinue))
+                {
+                    # The scheduled tasks cmdlets are missing, use schtasks.exe
+                    SCHTASKS.EXE /CREATE /RU "NT Authority\System" /SC ONCE /ST 23:59 /TN "WindowsUpdate-$using:guid" /TR "powershell.exe -NoProfile -File \`"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1\`" -Id \`"$using:guid\`" -Update \`"$updateList\`"" /RL HIGHEST /F
+                    SCHTASKS.EXE /RUN /TN "WindowsUpdate-$using:guid"
                 }
-                New-ScheduledTask @newScheduledTask | Register-ScheduledTask -TaskName "WindowsUpdate-$using:guid" | Start-ScheduledTask
+                else
+                {
+                    # Use the new scheduled tasks cmdlets
+                    $newScheduledTask = @{
+                        Action    = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-NoProfile -File  `"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1`" -Id `"$using:guid`" -Update `"$updateList`"" -ErrorAction Stop
+                        Trigger   = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(-1) -ErrorAction Stop
+                        Principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -RunLevel Highest -ErrorAction Stop
+                        Settings  = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ErrorAction Stop
+                    }
+                    New-ScheduledTask @newScheduledTask -ErrorAction Stop | Register-ScheduledTask -TaskName "WindowsUpdate-$using:guid" -ErrorAction Stop | Start-ScheduledTask -ErrorAction Stop
+                }
             }
 
             # Wait for every step until it is completed
