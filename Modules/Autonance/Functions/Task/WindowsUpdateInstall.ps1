@@ -145,15 +145,18 @@ function WindowsUpdateInstall
 
                 if ($null -eq (Get-Command -Name 'New-ScheduledTask' -ErrorAction SilentlyContinue))
                 {
+                    # Craete a temporary batch file
+                    "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1`" -Id `"$using:guid`" -Update `"$updateList`"" | Out-File "C:\Windows\Temp\WindowsUpdate-$using:guid.cmd" -Encoding Ascii
+
                     # The scheduled tasks cmdlets are missing, use schtasks.exe
-                    SCHTASKS.EXE /CREATE /RU "NT Authority\System" /SC ONCE /ST 23:59 /TN "WindowsUpdate-$using:guid" /TR "powershell.exe -NoProfile -File \`"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1\`" -Id \`"$using:guid\`" -Update \`"$updateList\`"" /RL HIGHEST /F
-                    SCHTASKS.EXE /RUN /TN "WindowsUpdate-$using:guid"
+                    (SCHTASKS.EXE /CREATE /RU "NT Authority\System" /SC ONCE /ST 23:59 /TN "WindowsUpdate-$using:guid" /TR "`"C:\Windows\Temp\WindowsUpdate-$using:guid.cmd\`"" /RL HIGHEST /F) | Out-Null
+                    (SCHTASKS.EXE /RUN /TN "WindowsUpdate-$using:guid") | Out-Null
                 }
                 else
                 {
                     # Use the new scheduled tasks cmdlets
                     $newScheduledTask = @{
-                        Action    = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-NoProfile -File  `"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1`" -Id `"$using:guid`" -Update `"$updateList`"" -ErrorAction Stop
+                        Action    = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-NoProfile -ExecutionPolicy Bypass -File `"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1`" -Id `"$using:guid`" -Update `"$updateList`"" -ErrorAction Stop
                         Trigger   = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(-1) -ErrorAction Stop
                         Principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -RunLevel Highest -ErrorAction Stop
                         Settings  = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ErrorAction Stop
@@ -204,7 +207,9 @@ function WindowsUpdateInstall
                 Invoke-Command -Session $session -ErrorAction SilentlyContinue -ScriptBlock {
 
                     Unregister-ScheduledTask -TaskName "WindowsUpdate-$using:guid" -Confirm:$false -ErrorAction SilentlyContinue
+                    Remove-Item -Path "C:\Windows\Temp\WindowsUpdate-$using:guid.cmd" -Force -ErrorAction SilentlyContinue
                     Remove-Item -Path "C:\Windows\Temp\WindowsUpdate-$using:guid.ps1" -Force -ErrorAction SilentlyContinue
+                    Remove-Item -Path "C:\Windows\Temp\WindowsUpdate-$using:guid.xml" -Force -ErrorAction SilentlyContinue
                 }
             }
 

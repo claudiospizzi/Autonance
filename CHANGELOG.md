@@ -6,6 +6,12 @@ The format is mainly based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.0.2 - 2017-12-11
+
+* Fixed: Encoding for windows update batch (Ascii)
+* Fixed: Set execution policy for windows update batch to bypass
+
+
 ## 1.0.1 - 2017-12-11
 
 * Fixed: Scheduled tasks for WindowsUpdateInstall tasks on older system
