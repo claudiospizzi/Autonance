@@ -143,16 +143,7 @@ function WindowsUpdateInstall
 
                 $updateList = $using:selectedUpdates.Identity -join ','
 
-                if ($null -eq (Get-Command -Name 'New-ScheduledTask' -ErrorAction SilentlyContinue))
-                {
-                    # Craete a temporary batch file
-                    "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1`" -Id `"$using:guid`" -Update `"$updateList`"" | Out-File "C:\Windows\Temp\WindowsUpdate-$using:guid.cmd" -Encoding Ascii
-
-                    # The scheduled tasks cmdlets are missing, use schtasks.exe
-                    (SCHTASKS.EXE /CREATE /RU "NT Authority\System" /SC ONCE /ST 23:59 /TN "WindowsUpdate-$using:guid" /TR "`"C:\Windows\Temp\WindowsUpdate-$using:guid.cmd\`"" /RL HIGHEST /F) | Out-Null
-                    (SCHTASKS.EXE /RUN /TN "WindowsUpdate-$using:guid") | Out-Null
-                }
-                else
+                try
                 {
                     # Use the new scheduled tasks cmdlets
                     $newScheduledTask = @{
@@ -162,6 +153,15 @@ function WindowsUpdateInstall
                         Settings  = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ErrorAction Stop
                     }
                     New-ScheduledTask @newScheduledTask -ErrorAction Stop | Register-ScheduledTask -TaskName "WindowsUpdate-$using:guid" -ErrorAction Stop | Start-ScheduledTask -ErrorAction Stop
+                }
+                catch
+                {
+                    # Craete a temporary batch file
+                    "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"C:\Windows\Temp\WindowsUpdate-$using:guid.ps1`" -Id `"$using:guid`" -Update `"$updateList`"" | Out-File "C:\Windows\Temp\WindowsUpdate-$using:guid.cmd" -Encoding Ascii
+
+                    # The scheduled tasks cmdlets are missing, use schtasks.exe
+                    (SCHTASKS.EXE /CREATE /RU "NT Authority\System" /SC ONCE /ST 23:59 /TN "WindowsUpdate-$using:guid" /TR "`"C:\Windows\Temp\WindowsUpdate-$using:guid.cmd\`"" /RL HIGHEST /F) | Out-Null
+                    (SCHTASKS.EXE /RUN /TN "WindowsUpdate-$using:guid") | Out-Null
                 }
             }
 
