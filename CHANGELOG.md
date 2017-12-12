@@ -6,6 +6,11 @@ The format is mainly based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.0.3 - 2017-12-12
+
+* Fixed: Reorder scheduled task creation
+
+
 ## 1.0.2 - 2017-12-11
 
 * Fixed: Encoding for windows update batch (Ascii)
