@@ -57,7 +57,7 @@ function SqlServerAvailabilityGroupFailover
         throw 'SqlServerAvailabilityGroupFailover task not encapsulated in a Maintenance container'
     }
 
-    New-AutonanceTask -Type 'SqlServerAvailabilityGroupFailover' -Name "$ComputerName $SqlInstance\$AvailabilityGroup" -Credential $Credential -Arguments $PSBoundParameters -ScriptBlock {
+    New-AutonanceTask -Type 'SqlServerAvailabilityGroupFailover' -Name "$ComputerName $SqlInstance $AvailabilityGroup" -Credential $Credential -Arguments $PSBoundParameters -ScriptBlock {
 
         [CmdletBinding()]
         param
@@ -94,6 +94,14 @@ function SqlServerAvailabilityGroupFailover
             $Delay = 2
         )
 
+        $SqlInstancePath = $SqlInstance
+
+        # Default MSSQLSERVER instance, only specified as server name
+        if (-not $SqlInstance.Contains('\'))
+        {
+            $SqlInstancePath = "$SqlInstance\DEFAULT"
+        }
+
         try
         {
             ## Part 1 - Connect to the SQL Server and load the SQLPS module
@@ -107,8 +115,8 @@ function SqlServerAvailabilityGroupFailover
 
             ## Part 2 - Check the current role and state
 
-            $replicas = Invoke-Command -Session $session -ScriptBlock { Get-ChildItem -Path "SQLSERVER:\Sql\$using:SqlInstance\AvailabilityGroups\$using:AvailabilityGroup\AvailabilityReplicas" } -ErrorAction Stop
-            $replica  = $replicas.Where({$_.Name -eq $SqlInstance})
+            $replicas = Invoke-Command -Session $session -ScriptBlock { Get-ChildItem -Path "SQLSERVER:\Sql\$using:SqlInstancePath\AvailabilityGroups\$using:AvailabilityGroup\AvailabilityReplicas" | Select-Object * } -ErrorAction Stop
+            $replica  = $replicas.Where({$_.Name -eq $SqlInstance})[0]
 
 
             ## Part 3 - Planned manual failover
@@ -120,7 +128,7 @@ function SqlServerAvailabilityGroupFailover
                 Write-Autonance -Message "Replica role is $($replica.Role.ToString().ToLower())"
                 Write-Autonance -Message "Replica state is $($replica.RollupRecoveryState.ToString().ToLower()) and $($replica.RollupSynchronizationState.ToString().ToLower())"
 
-                if ($replica.RollupRecoveryState -ne 'Online' -or $replica.RollupSynchronizationState -ne 'Synchronized')
+                if ($replica.RollupRecoveryState.ToString() -ne 'Online' -or $replica.RollupSynchronizationState.ToString() -ne 'Synchronized')
                 {
                     throw 'Replicate is not ready for planned manual failover!'
                 }
@@ -130,11 +138,11 @@ function SqlServerAvailabilityGroupFailover
 
                 Write-Autonance -Message "Failover $AvailabilityGroup to $SqlInstance ..."
 
-                Invoke-Command -Session $session -ScriptBlock { Switch-SqlAvailabilityGroup -Path "SQLSERVER:\Sql\$using:SqlInstance\AvailabilityGroups\$using:AvailabilityGroup" } -ErrorAction Stop
+                Invoke-Command -Session $session -ScriptBlock { Switch-SqlAvailabilityGroup -Path "SQLSERVER:\Sql\$using:SqlInstancePath\AvailabilityGroups\$using:AvailabilityGroup" } -ErrorAction Stop
 
                 Wait-AutonanceTask -Activity "$SqlInstance replication is restoring ..." -Count $Count -Delay $Delay -Condition {
 
-                    $replicas = Invoke-Command -Session $session -ScriptBlock { Get-ChildItem -Path "SQLSERVER:\Sql\$using:SqlInstance\AvailabilityGroups\$using:AvailabilityGroup\AvailabilityReplicas" | ForEach-Object { $_.Refresh(); $_ } } -ErrorAction Stop
+                    $replicas = Invoke-Command -Session $session -ScriptBlock { Get-ChildItem -Path "SQLSERVER:\Sql\$using:SqlInstancePath\AvailabilityGroups\$using:AvailabilityGroup\AvailabilityReplicas" | ForEach-Object { $_.Refresh(); $_ } } -ErrorAction Stop
 
                     $condition = $true
 
@@ -159,8 +167,8 @@ function SqlServerAvailabilityGroupFailover
 
             ## Part 4 - Verify
 
-            $replicas = Invoke-Command -Session $session -ScriptBlock { Get-ChildItem -Path "SQLSERVER:\Sql\$using:SqlInstance\AvailabilityGroups\$using:AvailabilityGroup\AvailabilityReplicas" } -ErrorAction Stop
-            $replica  = $replicas.Where({$_.Name -eq $SqlInstance})
+            $replicas = Invoke-Command -Session $session -ScriptBlock { Get-ChildItem -Path "SQLSERVER:\Sql\$using:SqlInstancePath\AvailabilityGroups\$using:AvailabilityGroup\AvailabilityReplicas" } -ErrorAction Stop
+            $replica  = $replicas.Where({$_.Name -eq $SqlInstance})[0]
 
             Write-Autonance -Message "Replica role is $($replica.Role.ToString().ToLower())"
             Write-Autonance -Message "Replica state is $($replica.RollupRecoveryState.ToString().ToLower()) and $($replica.RollupSynchronizationState.ToString().ToLower())"
