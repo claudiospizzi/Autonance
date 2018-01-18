@@ -73,6 +73,7 @@
         'SleepTask'
         'LocalScript'
         'RemoteScript'
+        'VMwareToolsUpgrade'
         'WindowsComputerRestart'
         'WindowsComputerShutdown'
         'WindowsComputerWait'
