@@ -1,0 +1,13 @@
+
+TOPIC
+    about_Autonance
+
+SHORT DESCRIPTION
+    PowerShell module for automatic supervised maintenance.
+
+LONG DESCRIPTION
+    To get more information about this module, check the open source GitHub
+    repository readme or the cmdlet based help for the module functions.
+
+LINK
+    https://github.com/claudiospizzi/Autonance
