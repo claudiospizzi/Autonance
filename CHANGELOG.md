@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 
 * Added: VMwareToolsUpgrade task added
+* Added: IcingaDowntime task added
 
 ## 1.0.4 - 2017-12-13
 
