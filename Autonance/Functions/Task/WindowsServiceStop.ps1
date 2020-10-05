@@ -1,21 +1,20 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to stop a Windows service.
+        Autonance DSL task to stop a Windows service.
 
     .DESCRIPTION
-    The WindowsServiceStop task is part of the Autonance domain-specific
-    language (DSL). The task will stop the specified Windows service on a
-    remote computer by using CIM to connect to the remote computer. A user
-    account can be specified with the Credential parameter.
+        The WindowsServiceStop task is part of the Autonance domain-specific
+        language (DSL). The task will stop the specified Windows service on a
+        remote computer by using CIM to connect to the remote computer. A user
+        account can be specified with the Credential parameter.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function WindowsServiceStop
 {
     [CmdletBinding()]

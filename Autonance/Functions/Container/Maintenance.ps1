@@ -1,21 +1,20 @@
 <#
     .SYNOPSIS
-    Autonance DSL maintenance container.
+        Autonance DSL maintenance container.
 
     .DESCRIPTION
-    The Maintenance container is part of the Autonance domain-specific language
-    (DSL) and is used to define a maintenance container block. The maintenance
-    container block is always the topmost block and contains all sub containers
-    and maintenance tasks.
+        The Maintenance container is part of the Autonance domain-specific
+        language (DSL) and is used to define a maintenance container block. The
+        maintenance container block is always the topmost block and contains all
+        sub containers and maintenance tasks.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function Maintenance
 {
     [CmdletBinding()]

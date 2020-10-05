@@ -1,21 +1,21 @@
 <#
     .SYNOPSIS
-    Autonance DSL container to group maintenance tasks.
+        Autonance DSL container to group maintenance tasks.
 
     .DESCRIPTION
-    The TaskGroup container is part of the Autonance domain-specific language
-    (DSL) and is used to group maintenance tasks. Optionally, the tasks within
-    the group can be repeated in a loop. The loop can have multiple stop options
-    or will run infinite as long as no exception occurs.
+        The TaskGroup container is part of the Autonance domain-specific
+        language (DSL) and is used to group maintenance tasks. Optionally, the
+        tasks within the group can be repeated in a loop. The loop can have
+        multiple stop options or will run infinite as long as no exception
+        occurs.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function TaskGroup
 {
     [CmdletBinding(DefaultParameterSetName = 'Simple')]

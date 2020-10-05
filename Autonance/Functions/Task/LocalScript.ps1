@@ -1,23 +1,22 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to invoke a local script block.
+        Autonance DSL task to invoke a local script block.
 
     .DESCRIPTION
-    The LocalScript task is part of the Autonance domain-specific language
-    (DSL). The task will invoke the script block on the local computer. The
-    script can use some of the built-in PowerShell functions to return objects
-    or control the maintenance:
-    - Throw an terminating error to stop the whole maintenance script
-    - Show status information with Write-Autonance
+        The LocalScript task is part of the Autonance domain-specific language
+        (DSL). The task will invoke the script block on the local computer. The
+        script can use some of the built-in PowerShell functions to return
+        objects or control the maintenance:
+        - Throw an terminating error to stop the whole maintenance script
+        - Show status information with Write-Autonance
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function LocalScript
 {
     [CmdletBinding()]

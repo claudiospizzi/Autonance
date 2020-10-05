@@ -74,6 +74,7 @@
         'LocalScript'
         'RemoteScript'
         'VMwareToolsUpgrade'
+        'IcingaDowntime'
         'WindowsComputerRestart'
         'WindowsComputerShutdown'
         'WindowsComputerWait'

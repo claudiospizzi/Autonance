@@ -1,20 +1,19 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to get a user confirmation.
+        Autonance DSL task to get a user confirmation.
 
     .DESCRIPTION
-    The ConfirmTask task is part of the Autonance domain-specific language
-    (DSL). The task uses the $Host.UI.PromptForChoice() built-in method
-    to display a host specific confirm prompt.
+        The ConfirmTask task is part of the Autonance domain-specific language
+        (DSL). The task uses the $Host.UI.PromptForChoice() built-in method to
+        display a host specific confirm prompt.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function ConfirmTask
 {
     [CmdletBinding()]

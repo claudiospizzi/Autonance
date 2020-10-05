@@ -1,23 +1,22 @@
 <#
     .SYNOPSIS
-    Unregister an Autonance extension.
+        Unregister an Autonance extension.
 
     .DESCRIPTION
-    This function removes a registered Autonance extension from the current
-    session.
+        This function removes a registered Autonance extension from the current
+        session.
 
     .EXAMPLE
-    PS C:\> Unregister-AutonanceExtension -Name 'WsusReport'
-    Unregister the Autonance extension calles WsusReport.
+        PS C:\> Unregister-AutonanceExtension -Name 'WsusReport'
+        Unregister the Autonance extension calles WsusReport.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function Unregister-AutonanceExtension
 {
     [CmdletBinding()]

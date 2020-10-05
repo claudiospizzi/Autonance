@@ -1,20 +1,19 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to failover an SQL Server Availability Group.
+        Autonance DSL task to failover an SQL Server Availability Group.
 
     .DESCRIPTION
-    Use this task to failover the specified SQL Server Availability Group to the
-    specified computer and instance. It will use the SQLPS module on the remote
-    system.
+        Use this task to failover the specified SQL Server Availability Group to
+        the specified computer and instance. It will use the SQLPS module on the
+        remote system.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function SqlServerAvailabilityGroupFailover
 {
     [CmdletBinding()]

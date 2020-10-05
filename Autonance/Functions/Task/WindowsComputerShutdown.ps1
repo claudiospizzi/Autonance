@@ -1,20 +1,20 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to shutdown a Windows computer.
+        Autonance DSL task to shutdown a Windows computer.
 
     .DESCRIPTION
-    The WindowsComputerShutdown task is part of the Autonance domain-specific
-    language (DSL). The task will shutdown the specified Windows computer. A
-    user account can be specified with the Credential parameter.
+        The WindowsComputerShutdown task is part of the Autonance
+        domain-specific language (DSL). The task will shutdown the specified
+        Windows computer. A user account can be specified with the Credential
+        parameter.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function WindowsComputerShutdown
 {
     [CmdletBinding()]

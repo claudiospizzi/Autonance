@@ -1,20 +1,20 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to restart a Windows computer.
+        Autonance DSL task to restart a Windows computer.
 
     .DESCRIPTION
-    The WindowsComputerRestart task is part of the Autonance domain-specific
-    language (DSL). The task will restart the specified Windows computer using
-    WinRM. A user account can be specified with the Credential parameter.
+        The WindowsComputerRestart task is part of the Autonance domain-specific
+        language (DSL). The task will restart the specified Windows computer
+        using WinRM. A user account can be specified with the Credential
+        parameter.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function WindowsComputerRestart
 {
     [CmdletBinding()]

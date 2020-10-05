@@ -1,53 +1,50 @@
 <#
     .SYNOPSIS
-    Register an Autonance extension.
+        Register an Autonance extension.
 
     .DESCRIPTION
-    This function will register a new Autonance extension, by creating a global
-    function with the specified extension name. The function can be called like
-    all other DSL tasks in the Maintenance block.
-    The script block can contain a parameter block, to specify the parameters
-    provided to the cmdlet. If a parameter $Credential is used, the credentials
-    will automatically be passed to the sub task, if specified. The function
-    Write-AutonanceMessage can be used to return status messages. The Autonance
-    module will take care of the formatting.
+        This function will register a new Autonance extension, by creating a
+        global function with the specified extension name. The function can be
+        called like all other DSL tasks in the Maintenance block.
+        The script block can contain a parameter block, to specify the
+        parameters provided to the cmdlet. If a parameter $Credential is used,
+        the credentials will automatically be passed to the sub task, if
+        specified. The function Write-AutonanceMessage can be used to return
+        status messages. The Autonance module will take care of the formatting.
 
     .EXAMPLE
-    PS C:\>
-    Register-AutonanceExtension -Name 'WsusReport' -ScriptBlock {
-        [CmdletBinding()]
-        param
-        (
-            [Parameter(Mandatory = $true, Position = 0)]
-            [System.String]
-            $ComputerName,
+        PS C:\> Register-AutonanceExtension -Name 'WsusReport' -ScriptBlock
+            {[CmdletBinding()] param
+            (
+                [Parameter(Mandatory = $true, Position = 0)]
+                [System.String]
+                $ComputerName,
 
-            [Parameter(Mandatory = $false)]
-            [System.Management.Automation.PSCredential]
-            [System.Management.Automation.Credential()]
-            $Credential,
-        )
+                [Parameter(Mandatory = $false)]
+                [System.Management.Automation.PSCredential]
+                [System.Management.Automation.Credential()]
+                $Credential,
+            )
 
-        if ($null -eq $Credential)
-        {
-            Invoke-Command -ComputerName $ComputerName -ScriptBlock { wuauclt.exe /ReportNow }
+            if ($null -eq $Credential)
+            {
+                Invoke-Command -ComputerName $ComputerName -ScriptBlock { wuauclt.exe /ReportNow }
+            }
+            else
+            {
+                Invoke-Command -ComputerName $ComputerName -Credential $Credential -ScriptBlock { wuauclt.exe /ReportNow }
+            }
         }
-        else
-        {
-            Invoke-Command -ComputerName $ComputerName -Credential $Credential -ScriptBlock { wuauclt.exe /ReportNow }
-        }
-    }
 
-    Register an Autonance extension to invoke the report now command for WSUS.
+        Register an Autonance extension to invoke the report now command for WSUS.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function Register-AutonanceExtension
 {
     [CmdletBinding()]

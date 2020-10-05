@@ -1,29 +1,24 @@
 <#
     .SYNOPSIS
-    Write an Autonance task message.
+        Write an Autonance task message.
 
     .DESCRIPTION
-    This function must be used in a Autonance extension task to show the current
-    status messages in a nice formatted output. The Autonance module will take
-    care about the indent and message color.
+        This function must be used in a Autonance extension task to show the
+        current status messages in a nice formatted output. The Autonance module
+        will take care about the indent and message color.
 
     .EXAMPLE
-    PS C:\>
-    Register-AutonanceExtension -Name 'ShowMessage' -ScriptBlock {
-        Write-AutonanceMessage -Message 'Hello, World!'
-    }
-
-    Uses the Write-AutonanceMessage function to show a nice formatted output
-    message within a custom Autonance task.
+        PS C:\> Register-AutonanceExtension -Name 'ShowMessage' -ScriptBlock { Write-AutonanceMessage -Message 'Hello, World!' }
+        Uses the Write-AutonanceMessage function to show a nice formatted output
+        message within a custom Autonance task.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function Write-AutonanceMessage
 {
     [CmdletBinding()]

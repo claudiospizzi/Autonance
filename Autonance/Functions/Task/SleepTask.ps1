@@ -1,20 +1,19 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to wait for the specified amount of time.
+        Autonance DSL task to wait for the specified amount of time.
 
     .DESCRIPTION
-    The SleepTask task is part of the Autonance domain-specific language (DSL).
-    The task uses the Start-Sleep built-in command to wait for the specified
-    amount of time.
+        The SleepTask task is part of the Autonance domain-specific language
+        (DSL). The task uses the Start-Sleep built-in command to wait for the
+        specified amount of time.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function SleepTask
 {
     [CmdletBinding()]

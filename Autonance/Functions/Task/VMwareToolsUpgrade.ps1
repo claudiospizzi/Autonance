@@ -1,20 +1,19 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to upgrade the VMware Tools.
+        Autonance DSL task to upgrade the VMware Tools.
 
     .DESCRIPTION
-    The VMwareToolsUpgrade task is part of the Autonance domain-specific
-    language (DSL). The task will use the PowerCLI cmdlet to connect to a
-    vSphere Server and upgrade the VMware Tools on the target VM.
+        The VMwareToolsUpgrade task is part of the Autonance domain-specific
+        language (DSL). The task will use the PowerCLI cmdlet to connect to a
+        vSphere Server and upgrade the VMware Tools on the target VM.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function VMwareToolsUpgrade
 {
     [CmdletBinding()]

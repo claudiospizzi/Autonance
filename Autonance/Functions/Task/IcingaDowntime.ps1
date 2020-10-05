@@ -1,20 +1,19 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to set an Icinga service downtime.
+        Autonance DSL task to set an Icinga service downtime.
 
     .DESCRIPTION
-    The IcingaDowntime task is part of the Autonance domain-specific language
-    (DSL). The task will set a downtime in an Icinga monitoring instance for
-    the specific service.
+        The IcingaDowntime task is part of the Autonance domain-specific
+        language (DSL). The task will set a downtime in an Icinga monitoring
+        instance for the specific service.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function IcingaDowntimeService
 {
     [CmdletBinding()]

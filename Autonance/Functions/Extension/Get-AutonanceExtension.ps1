@@ -1,23 +1,22 @@
 <#
     .SYNOPSIS
-    Get the registered Autonance extensions.
+        Get the registered Autonance extensions.
 
     .DESCRIPTION
-    This command wil return all registered autonance extensions in the current
-    PowerShell session.
+        This command wil return all registered autonance extensions in the
+        current PowerShell session.
 
     .EXAMPLE
-    PS C:\> Get-AutonanceExtension
-    Returns all registered autonance extensions.
+        PS C:\> Get-AutonanceExtension
+        Returns all registered autonance extensions.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function Get-AutonanceExtension
 {
     [CmdletBinding()]

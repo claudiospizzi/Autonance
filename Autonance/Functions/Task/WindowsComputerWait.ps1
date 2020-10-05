@@ -1,21 +1,20 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to wait for a Windows computer.
+        Autonance DSL task to wait for a Windows computer.
 
     .DESCRIPTION
-    The WindowsComputerWait task is part of the Autonance domain-specific
-    language (DSL). The task will wait until the specified Windows computer is
-    reachable using WinRM. A user account can be specified with the Credential
-    parameter.
+        The WindowsComputerWait task is part of the Autonance domain-specific
+        language (DSL). The task will wait until the specified Windows computer
+        is reachable using WinRM. A user account can be specified with the
+        Credential parameter.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function WindowsComputerWait
 {
     [CmdletBinding()]

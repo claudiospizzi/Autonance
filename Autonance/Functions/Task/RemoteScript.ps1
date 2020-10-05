@@ -1,24 +1,23 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to invoke a remote script block.
+        Autonance DSL task to invoke a remote script block.
 
     .DESCRIPTION
-    The RemoteScript task is part of the Autonance domain-specific language
-    (DSL). The task will invoke the script block on the specified Windows
-    computer using WinRM. A user account can be specified with the Credential
-    parameter. The script can use some of the built-in PowerShell functions to
-    return objects or control the maintenance:
-    - Throw an terminating error to stop the whole maintenance script
-    - Show status information with Write-Autonance
+        The RemoteScript task is part of the Autonance domain-specific language
+        (DSL). The task will invoke the script block on the specified Windows
+        computer using WinRM. A user account can be specified with the
+        Credential parameter. The script can use some of the built-in PowerShell
+        functions to return objects or control the maintenance:
+        - Throw an terminating error to stop the whole maintenance script
+        - Show status information with Write-Autonance
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function RemoteScript
 {
     [CmdletBinding()]

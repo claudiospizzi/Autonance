@@ -1,21 +1,21 @@
 <#
     .SYNOPSIS
-    Autonance DSL task to install Windows updates.
+        Autonance DSL task to install Windows updates.
 
     .DESCRIPTION
-    The WindowsUpdateInstall task is part of the Autonance domain-specific
-    language (DSL). The task will install all pending Windows updates on the
-    target Windows computer by using WinRM and the 'Microsoft.Update.Session'
-    COM object. A user account can be specified with the Credential parameter.
+        The WindowsUpdateInstall task is part of the Autonance domain-specific
+        language (DSL). The task will install all pending Windows updates on the
+        target Windows computer by using WinRM and the
+        'Microsoft.Update.Session' COM object. A user account can be specified
+        with the Credential parameter.
 
     .NOTES
-    Author     : Claudio Spizzi
-    License    : MIT License
+        Author     : Claudio Spizzi
+        License    : MIT License
 
     .LINK
-    https://github.com/claudiospizzi/Autonance
+        https://github.com/claudiospizzi/Autonance
 #>
-
 function WindowsUpdateInstall
 {
     [CmdletBinding()]
