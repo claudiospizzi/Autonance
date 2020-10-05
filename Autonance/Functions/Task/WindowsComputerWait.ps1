@@ -89,7 +89,7 @@ function WindowsComputerWait
                 }
 
                 # Test the connection and try to get the computer name
-                Invoke-Command -ComputerName $ComputerName @credentialSplat -ScriptBlock { $Env:ComputerName } -WarningAction SilentlyContinue -ErrorAction Stop | Out-Null
+                Invoke-Command -ComputerName $ComputerName @credentialSplat -ScriptBlock { } -WarningAction SilentlyContinue -ErrorAction Stop | Out-Null
 
                 return $true
             }

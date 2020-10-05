@@ -105,7 +105,7 @@ function WindowsComputerShutdown
 
         ## Part 3 - Wait for Shutdown
 
-        # Wait until the computer has is disconnected
+        # Wait until the computer has or is disconnected
         Wait-AutonanceTask -Activity "Wait for computer $ComputerName disconnect..." -Count $Count -Delay $Delay -Condition {
 
             try
@@ -118,7 +118,7 @@ function WindowsComputerShutdown
                 }
 
                 # Test the connection and try to get the computer name
-                Invoke-Command -ComputerName $ComputerName @credentialSplat -ScriptBlock { $Env:ComputerName } -WarningAction SilentlyContinue -ErrorAction Stop | Out-Null
+                Invoke-Command -ComputerName $ComputerName @credentialSplat -ScriptBlock { } -WarningAction SilentlyContinue -ErrorAction Stop | Out-Null
 
                 return $false
             }
