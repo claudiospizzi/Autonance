@@ -1,2 +1,20 @@
-/bin/
-/tst/
+# Module assemblies
+**/Assemblies/*.dll
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio cache, packages
+.vs/
+**/packages/*
+
+# Ignore debug log
+.debug.ps1.log
+
+# Ignore log files
+Logs/**
+
+# Temporary debug files
+.debug.*.ps1

@@ -1,13 +1,10 @@
 [![PowerShell Gallery - Autonance](https://img.shields.io/badge/PowerShell_Gallery-Autonance-0072C6.svg)](https://www.powershellgallery.com/packages/Autonance)
 [![GitHub - Release](https://img.shields.io/github/release/claudiospizzi/Autonance.svg)](https://github.com/claudiospizzi/Autonance/releases)
 [![AppVeyor - master](https://img.shields.io/appveyor/ci/claudiospizzi/Autonance/master.svg)](https://ci.appveyor.com/project/claudiospizzi/Autonance/branch/master)
-[![AppVeyor - dev](https://img.shields.io/appveyor/ci/claudiospizzi/Autonance/dev.svg)](https://ci.appveyor.com/project/claudiospizzi/Autonance/branch/dev)
-
 
 # Autonance PowerShell Module
 
 PowerShell module for automatic supervised maintenance with Autonance DSL.
-
 
 ## Introduction
 
@@ -19,7 +16,6 @@ complex dependencies.
 Thanks to the Autonance domain-specific language, the maintenance can be written
 as a readable playbook, easy to understand and track.
 
-
 ## Features
 
 ### Containers
@@ -27,10 +23,10 @@ as a readable playbook, easy to understand and track.
 The following containers are the root elements of the Autonance domain-specific
 language and can be used to group the tasks.
 
-* **Maintenance**
+* **Maintenance**  
   Autonance DSL maintenance container. The top-most container.
 
-* **TaskGroup**
+* **TaskGroup**  
   Container to group maintenance tasks.
 
 ### Tasks
@@ -38,55 +34,57 @@ language and can be used to group the tasks.
 The following tasks are part of the Autonance domain-specific language and can
 be used to perform maintenance.
 
-* **SleepTask**
+* **SleepTask**  
   Wait for the specified amount of time.
 
-* **ConfirmTask**
+* **ConfirmTask**  
   Get a user confirmation to continue or stop the maintenance script.
 
-* **LocalScript**
+* **LocalScript**  
   Invoke a script script block on the local computer.
 
-* **RemoteScript**
+* **RemoteScript**  
   Invoke a script script block on the remote computer.
 
-* **WindowsServiceStart**
+* **WindowsServiceStart**  
   Ensure a Windows service is started.
 
 * **WindowsServiceStop**
   Ensure a Windows service is stopped.
 
-* **WindowsServiceConfig**
+* **WindowsServiceConfig**  
   Ensure a Windows has a valid startup type configuration.
 
-* **WindowsUpdateInstall**
+* **WindowsUpdateInstall**  
   Install windows updates on the target computer.
 
-* **WindowsComputerRestart**
+* **WindowsComputerRestart**  
   Restart the target Windows computer.
 
-* **WindowsComputerShutdown**
+* **WindowsComputerShutdown**  
   Shutdown the target Windows computer.
 
-* **WindowsComputerWait**
+* **WindowsComputerWait**  
   Wait until the target Windows computer is online
 
-* **SqlServerAvailabilityGroupFailover**
+* **SqlServerAvailabilityGroupFailover**  
   Failover the SQL Availability Group to the target SQL Instance.
 
 ### Extensions
 
-* **Get-AutonanceExtension**
+* **Get-AutonanceExtension**  
   Get all registered tasks in the Autonance extension system.
 
-* **Register-AutonanceExtension**
+* **Register-AutonanceExtension**  
   Register a new task in the Autonance extension system.
 
-* **Unregister-AutonanceExtension**
+* **Unregister-AutonanceExtension**  
   Unregister an existing task from the Autonance extension system.
 
-* **Write-AutonanceMessage**
+* **Write-AutonanceMessage**  
   Use this function to write Autonance messages in an extension task.
+
+## Examples
 
 ### Example 1: Single Server Maintenance
 
@@ -203,12 +201,10 @@ Maintenance 'Extension Demo' {
 }
 ```
 
-
 ## Versions
 
 Please find all versions in the [GitHub Releases] section and the release notes
 in the [CHANGELOG.md] file.
-
 
 ## Installation
 
@@ -226,7 +222,6 @@ manually on your local system:
 1. Download the latest release from GitHub as a ZIP file: [GitHub Releases]
 2. Extract the module and install it: [Installing a PowerShell Module]
 
-
 ## Requirements
 
 The following minimum requirements are necessary to use this module, or in other
@@ -234,7 +229,6 @@ words are used to test this module:
 
 * Windows PowerShell 5.1
 * Windows Server 2012 R2 / Windows 10
-
 
 ## Contribute
 
@@ -244,8 +238,6 @@ Studio Code and ensure that the PowerShell extension is installed.
 
 * [Visual Studio Code] with the [PowerShell Extension]
 * [Pester], [PSScriptAnalyzer] and [psake] PowerShell Modules
-
-
 
 [PowerShell Gallery]: https://www.powershellgallery.com/packages/Autonance
 [GitHub Releases]: https://github.com/claudiospizzi/Autonance/releases
