@@ -18,7 +18,7 @@
     # CompanyName = ''
 
     # Copyright statement for this module
-    Copyright = 'Copyright (c) 2018 by Claudio Spizzi. Licensed under MIT license.'
+    Copyright = 'Copyright (c) 2020 by Claudio Spizzi. Licensed under MIT license.'
 
     # Description of the functionality provided by this module
     Description = 'PowerShell module for automatic maintenance.'
@@ -52,12 +52,12 @@
 
     # Type files (.ps1xml) to be loaded when importing this module
     TypesToProcess = @(
-        'Resources\Autonance.Types.ps1xml'
+        'Autonance.Xml.Types.ps1xml'
     )
 
     # Format files (.ps1xml) to be loaded when importing this module
     FormatsToProcess = @(
-        'Resources\Autonance.Formats.ps1xml'
+        'Autonance.Xml.Format.ps1xml'
     )
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
