@@ -13,8 +13,9 @@
         status messages. The Autonance module will take care of the formatting.
 
     .EXAMPLE
-        PS C:\> Register-AutonanceExtension -Name 'WsusReport' -ScriptBlock
-            {[CmdletBinding()] param
+        PS C:\> Register-AutonanceExtension -Name 'WsusReport' -ScriptBlock {
+            [CmdletBinding()]
+            param
             (
                 [Parameter(Mandatory = $true, Position = 0)]
                 [System.String]
