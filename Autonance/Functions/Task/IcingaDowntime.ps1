@@ -14,7 +14,7 @@
     .LINK
         https://github.com/claudiospizzi/Autonance
 #>
-function IcingaDowntimeService
+function IcingaDowntime
 {
     [CmdletBinding()]
     param
@@ -22,17 +22,12 @@ function IcingaDowntimeService
         # The hostname of the icinga instance.
         [Parameter(Mandatory = $true, Position = 0)]
         [System.String]
-        $ComputerName,
+        $IcingaServer,
 
-        # The target service name for the downtime.
-        [Parameter(Mandatory = $true, Position = 1)]
-        [System.String]
-        $ServiceName,
-
-        # The target service name for the downtime.
-        [Parameter(Mandatory = $false, Position = 2)]
-        [System.TimeSpan]
-        $Duration = '01:00:00',
+        # Optionally, specify the port
+        [Parameter(Mandatory = $false)]
+        [System.Int32]
+        $IcingaPort = 5665,
 
         # Specifies a icinga user that has permission to perform the task.
         [Parameter(Mandatory = $false)]
@@ -40,10 +35,25 @@ function IcingaDowntimeService
         [System.Management.Automation.Credential()]
         $Credential,
 
-        # Optionally, specify the port
+        # The target host name for the downtime.
+        [Parameter(Mandatory = $true, Position = 1)]
+        [System.String]
+        $HostName,
+
+        # The target service name for the downtime.
         [Parameter(Mandatory = $false)]
-        [System.Int32]
-        $IcingaPort = 5665
+        [System.String]
+        $ServiceName,
+
+        # Downtime duration.
+        [Parameter(Mandatory = $false)]
+        [System.TimeSpan]
+        $Duration = '01:00:00',
+
+        # Downtime comment.
+        [Parameter(Mandatory = $false)]
+        [System.String]
+        $Comment = "Downtime by $Env:Username on $Env:ComputerName at $((Get-Date).ToString('s')) using Autonance"
     )
 
     if (!$Script:AutonanceBlock)
@@ -51,7 +61,14 @@ function IcingaDowntimeService
         throw 'IcingaDowntime task not encapsulated in a Maintenance container'
     }
 
-    New-AutonanceTask -Type 'IcingaDowntime' -Name "$ComputerName $ServiceName" -Credential $Credential -Arguments $PSBoundParameters -ScriptBlock {
+    # Build a nice task name
+    $taskName = '{0} {1}' -f $IcingaServer, $HostName
+    if (-not [System.String]::IsNullOrEmpty($ServiceName))
+    {
+        $taskName = '{0}!{1}' -f $taskName, $ServiceName
+    }
+
+    New-AutonanceTask -Type 'IcingaDowntime' -Name $taskName -Credential $Credential -Arguments $PSBoundParameters -ScriptBlock {
 
         [CmdletBinding()]
         param
@@ -59,17 +76,12 @@ function IcingaDowntimeService
             # The hostname of the icinga instance.
             [Parameter(Mandatory = $true, Position = 0)]
             [System.String]
-            $ComputerName,
+            $IcingaServer,
 
-            # The target service name for the downtime.
-            [Parameter(Mandatory = $true, Position = 1)]
-            [System.String]
-            $ServiceName,
-
-            # The target service name for the downtime.
-            [Parameter(Mandatory = $false, Position = 2)]
-            [System.TimeSpan]
-            $Duration = '01:00:00',
+            # Optionally, specify the port
+            [Parameter(Mandatory = $false)]
+            [System.Int32]
+            $IcingaPort = 5665,
 
             # Specifies a icinga user that has permission to perform the task.
             [Parameter(Mandatory = $false)]
@@ -77,25 +89,42 @@ function IcingaDowntimeService
             [System.Management.Automation.Credential()]
             $Credential,
 
-            # Optionally, specify the port
+            # The target host name for the downtime.
+            [Parameter(Mandatory = $true, Position = 1)]
+            [System.String]
+            $HostName,
+
+            # The target service name for the downtime.
             [Parameter(Mandatory = $false)]
-            [System.Int32]
-            $IcingaPort = 5665
+            [System.String]
+            $ServiceName,
+
+            # Downtime duration.
+            [Parameter(Mandatory = $false)]
+            [System.TimeSpan]
+            $Duration = '01:00:00',
+
+            # Downtime comment.
+            [Parameter(Mandatory = $false)]
+            [System.String]
+            $Comment = "Downtime by $Env:Username on $Env:ComputerName at $((Get-Date).ToString('s')) using Autonance"
         )
 
-        Write-Autonance -Message "Connected to VMware Server $viServer"
+        Write-Autonance -Message "Connected to Icinga Server $IcingaServer`:$IcingaPort"
 
-        # $ curl -k -s -u root:icinga -H 'Accept: application/json' -X POST
-        # 'https://localhost:5665/v1/actions/schedule-downtime?type=Service&filter=service.name==%22ping4%22'
-        # -d '{ "start_time": 1446388806, "end_time": 1446389806, "duration": 1000, "author": "icingaadmin", "comment": "IPv4 network maintenance", "pretty": true }'
+        Connect-IcingaServer -Uri "https://$IcingaServer`:$IcingaPort" -Credential $Credential
 
+        if ([System.String]::IsNullOrEmpty($ServiceName))
+        {
+            Write-Autonance -Message "Set downtime on host $HostName for $Duration"
 
-        # try
-        # {
-        # }
-        # catch
-        # {
-        #     throw $_
-        # }
+            Get-IcingaHost -ComputerName $HostName | Set-IcingaDowntime -Duration $Duration -Comment $Comment | Out-Null
+        }
+        else
+        {
+            Write-Autonance -Message "Set downtime on service $HostName!$ServiceName for $Duration"
+
+            Get-IcingaHost -ComputerName $HostName -ServiceName $ServiceName | Set-IcingaDowntime -Duration $Duration -Comment $Comment | Out-Null
+        }
     }
 }
