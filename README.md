@@ -232,21 +232,19 @@ words are used to test this module:
 
 ## Contribute
 
-Please feel free to contribute by opening new issues or providing pull requests.
-For the best development experience, open this project as a folder in Visual
-Studio Code and ensure that the PowerShell extension is installed.
+Please feel free to contribute to this project. For the best development
+experience, please us the following tools:
 
 * [Visual Studio Code] with the [PowerShell Extension]
-* [Pester], [PSScriptAnalyzer] and [psake] PowerShell Modules
+* [Pester], [PSScriptAnalyzer], [InvokeBuild], [InvokeBuildHelper] modules
 
 [PowerShell Gallery]: https://www.powershellgallery.com/packages/Autonance
-[GitHub Releases]: https://github.com/claudiospizzi/Autonance/releases
-[Installing a PowerShell Module]: https://msdn.microsoft.com/en-us/library/dd878350
-
 [CHANGELOG.md]: CHANGELOG.md
 
 [Visual Studio Code]: https://code.visualstudio.com/
 [PowerShell Extension]: https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell
+
 [Pester]: https://www.powershellgallery.com/packages/Pester
 [PSScriptAnalyzer]: https://www.powershellgallery.com/packages/PSScriptAnalyzer
-[psake]: https://www.powershellgallery.com/packages/psake
+[InvokeBuild]: https://www.powershellgallery.com/packages/InvokeBuild
+[InvokeBuildHelper]: https://www.powershellgallery.com/packages/InvokeBuildHelper
